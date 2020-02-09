@@ -13,6 +13,8 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelperLite";
     private static final String DATABASE_NAME = "vocabulary_db";
     private static final int DATABASE_VERSION = 1;
+    public static final int ID_POSITION = 0;
+    public static final int NAME_POSITION = 1;
 
     private static final String CREATE_TABLE = " create table if not exists ";
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
@@ -58,7 +60,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
     private static final String BOOK_ID_F = "book_id";
     private static final String CREATE_LESSON_ID = ID + ID_TYPE;
     private static final String CREATE_LESSON_NAME = LESSON_NAME + STRING_TYPE_50;
-    private static final String CREATE_BOOK_ID_F = BOOK_ID_F + ID_TYPE;
+    private static final String CREATE_BOOK_ID_F = BOOK_ID_F + STRING_TYPE_50;
     private static final String CREATE_LESSON_TABLE = CREATE_TABLE + LESSON_TABLE + " (" +
             CREATE_LESSON_ID + COMMA_SEPARATOR +
             CREATE_LESSON_NAME + COMMA_SEPARATOR +
@@ -75,7 +77,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
     private static final String CREATE_WORD = WORD + STRING_TYPE_100;
     private static final String CREATE_LANGUAGE_NAME_F = LANGUAGE_NAME_F + STRING_TYPE_50;
     private static final String CREATE_MEANING = MEANING + STRING_TYPE_200;
-    private static final String CREATE_LESSON_ID_F = LESSON_ID_F + ID_TYPE;
+    private static final String CREATE_LESSON_ID_F = LESSON_ID_F + STRING_TYPE_50;
     private static final String CREATE_KNOWLEDGE = KNOWLEDGE + INT_TYPE;
     private static final String CREATE_EXAMPLE_SENTENCE = EXAMPLE_SENTENCE + STRING_TYPE_200;
     private static final String CREATE_WORDS_TABLE = CREATE_TABLE + WORD_TABLE + " (" +
@@ -101,7 +103,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_LANGUAGE_TABLE);
         sqLiteDatabase.execSQL(CREATE_BOOK_TABLE);
         sqLiteDatabase.execSQL(CREATE_LESSON_TABLE);
-        sqLiteDatabase.execSQL(WORD_TABLE);
+        sqLiteDatabase.execSQL(CREATE_WORDS_TABLE);
         Log.d(TAG, "onCreate: create " + LANGUAGE_TABLE + " table + " + CREATE_LANGUAGE_TABLE);
         Log.d(TAG, "onCreate: create " + BOOK_TABLE + " table + " + CREATE_BOOK_TABLE);
         Log.d(TAG, "onCreate: create " + LESSON_TABLE + " table + " + CREATE_LESSON_TABLE);
@@ -244,5 +246,16 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
         return data;
     }
 
-
+    /**
+     * Getting all data from books table.
+     * @return A cursor what contains the data.
+     */
+    public Cursor getBooks(){
+        SQLiteDatabase db = getWritableDatabase();
+        String query = SELECT_ALL_ROW_FROM_TABLE + BOOK_TABLE;
+        Log.d(TAG, "getBooks. query: " + query);
+        Cursor data = db.rawQuery(query, null);
+        Log.d(TAG, "getBooks: query was successful");
+        return data;
+    }
 }
