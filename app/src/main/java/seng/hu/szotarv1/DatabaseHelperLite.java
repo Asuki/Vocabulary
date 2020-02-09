@@ -50,7 +50,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
     private static final String CREATE_SECOND_LANGUAGE_ID_F = SECOND_LANGUAGE + STRING_TYPE_50;
     private static final String CREATE_BOOK_TABLE = CREATE_TABLE + BOOK_TABLE + " (" +
             CREATE_BOOK_ID + COMMA_SEPARATOR +
-            CREATE_BOOK_TITLE + COMMA_SEPARATOR +
+            CREATE_BOOK_TITLE + UNIQUE_MODIFIER + COMMA_SEPARATOR +
             CREATE_FIRST_LANGUAGE_ID_F + COMMA_SEPARATOR +
             CREATE_SECOND_LANGUAGE_ID_F + ");";
 
@@ -161,7 +161,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
      * @param bookId ID of the book
      * @return true if the adding was successful false otherwise.
      */
-    public boolean addLesson(String name, int bookId){
+    public boolean addLesson(String name, String bookId){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(LESSON_NAME, name);
@@ -256,6 +256,27 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
         Log.d(TAG, "getBooks. query: " + query);
         Cursor data = db.rawQuery(query, null);
         Log.d(TAG, "getBooks: query was successful");
+        return data;
+    }
+
+    public String getBookIdByTitle(String title){
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "select id from " + BOOK_TABLE + " where " + BOOK_TITLE + " = '" + title + "';";
+
+        Log.d(TAG, "getBookIdByTitle query: " + query);
+        Cursor data = db.rawQuery(query, null);
+        data.moveToFirst();
+        return data.getString(ID_POSITION);
+    }
+
+    public Cursor getLessonsOfBook(String title){
+        SQLiteDatabase db = getWritableDatabase();
+        String query = SELECT_ALL_ROW_FROM_TABLE + LESSON_TABLE +
+                " where " + BOOK_ID_F + " in (select id from " + BOOK_TABLE +
+                " where " + BOOK_TITLE + " = '" + title + "')";
+        Log.d(TAG, "getLessonsOfBook query: "  + query);
+        Cursor data = db.rawQuery(query, null);
+        Log.d(TAG, "getLessonsOfBook: query was successful");
         return data;
     }
 }

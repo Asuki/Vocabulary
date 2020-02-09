@@ -15,10 +15,11 @@
     <string name="menu_send">Send</string>
 
     <!-- Activities Labels -->
-    <string name="book_title">Title</string>
+    <string name="book_title">Book Title</string>
     <string name="book_language_1">1st Language</string>
     <string name="book_language_2">2nd Language</string>
     <string name="ready">Ready</string>
+    <string name="lesson">Lesson</string>
 
     <!-- Fab Icon titles -->
     <string name="add_book">New book</string>
@@ -26,5 +27,6 @@
     <string name="add_word">New word</string>
 
     <!-- Errors -->
-    <string name="all_fields_are_required">All fields are required!</string>
+    <string name="all_fields_are_required_error">All fields are required!</string>
+    <string name="add_book_first_error">Add books at first!</string>
 </resources>

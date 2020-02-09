@@ -35,7 +35,7 @@ public class AddBookActivity extends AppCompatActivity {
         if (editTextLanguage1.getText().toString().equals("") ||
         editTextLanguage2.getText().toString().equals("") ||
         editTextBookTitle.getText().toString().equals(""))
-            Toast.makeText(getBaseContext(), getString(R.string.all_fields_are_required), Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), getString(R.string.all_fields_are_required_error), Toast.LENGTH_LONG).show();
         else {
             dbLite.addBook(editTextBookTitle.getText().toString(),
                     editTextLanguage1.getText().toString(),

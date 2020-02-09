@@ -5,9 +5,10 @@ import android.database.Cursor;
 import android.os.Bundle;
 
 //import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.navigation.NavigationView;
 import com.github.clans.fab.FloatingActionButton;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -24,14 +25,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 
@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout layoutFb;
     private LinearLayout layoutCall;
     private LinearLayout layoutWhatsApp;
-    private static final int BOOK_EDIT_REQUEST_CODE = 0;
+    public static final String BOOK_TITLE = "book title";
+    private static final int EDIT_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        //NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -66,13 +67,20 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        //NavigationUI.setupWithNavController(navigationView, navController);
+        NavigationUI.setupWithNavController(navigationView, navController);
 
         listView = findViewById(R.id.listViewBooks);
-
+        listView.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intentLessonList = new Intent(MainActivity.this, LessonsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(BOOK_TITLE, adapterView.getItemAtPosition(i).toString());
+                intentLessonList.putExtras(bundle);
+                startActivityForResult(intentLessonList, EDIT_REQUEST_CODE);
+            }
+        });
         init();
-
-
 
 
         FloatingActionButton fabAddWord = findViewById(R.id.fabAddWord);
@@ -87,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
         fabAddLesson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Új lecke ide", Toast.LENGTH_SHORT).show();
+                Intent intentAddLesson = new Intent(MainActivity.this, AddLessonActivity.class);
+                startActivityForResult(intentAddLesson, EDIT_REQUEST_CODE);
             }
         });
 
@@ -95,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
         fabAddBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddBookActivity.class);
-                startActivityForResult(intent, BOOK_EDIT_REQUEST_CODE);
+                Intent intentAddBook = new Intent(MainActivity.this, AddBookActivity.class);
+                startActivityForResult(intentAddBook, EDIT_REQUEST_CODE);
             }
         });
     }

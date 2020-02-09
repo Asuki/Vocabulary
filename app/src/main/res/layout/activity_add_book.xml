@@ -80,8 +80,7 @@
 
     <Button
         android:id="@+id/buttonReadyEdit"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="@color/white"
+        style="@style/Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="addBook"
