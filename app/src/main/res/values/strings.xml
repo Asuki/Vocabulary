@@ -25,6 +25,7 @@
     <string name="add_book">New book</string>
     <string name="add_lesson">New lesson</string>
     <string name="add_word">New word</string>
+    <string name="edit_mode">Edit mode</string>
 
     <!-- Errors -->
     <string name="all_fields_are_required_error">All fields are required!</string>

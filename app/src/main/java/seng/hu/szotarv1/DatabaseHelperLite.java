@@ -15,6 +15,8 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     public static final int ID_POSITION = 0;
     public static final int NAME_POSITION = 1;
+    public static final int LANGUAGE_1_POSITION = 2;
+    public static final int LANGUAGE_2_POSITION = 3;
 
     private static final String CREATE_TABLE = " create table if not exists ";
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
@@ -259,6 +261,11 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
         return data;
     }
 
+    /**
+     * Getting the id of the book
+     * @param title The tittle of the book what's id is needed
+     * @return The id of the book.
+     */
     public String getBookIdByTitle(String title){
         SQLiteDatabase db = getWritableDatabase();
         String query = "select id from " + BOOK_TABLE + " where " + BOOK_TITLE + " = '" + title + "';";
@@ -269,6 +276,25 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
         return data.getString(ID_POSITION);
     }
 
+    /**
+     * Getting the data of a book.
+     * @param title The tittle of the book.
+     * @return the data of the book.
+     */
+    public Cursor getBookByTitle(String title){
+        SQLiteDatabase db = getWritableDatabase();
+        String query = SELECT_ALL_ROW_FROM_TABLE + BOOK_TABLE + " where " + BOOK_TITLE + " = '" + title + "';";
+
+        Log.d(TAG, "getBookIdByTitle query: " + query);
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
+
+    /**
+     * Getting a lesson of a book.
+     * @param title The tittle of the book what's lessons needed.
+     * @return A lesson table of the book.
+     */
     public Cursor getLessonsOfBook(String title){
         SQLiteDatabase db = getWritableDatabase();
         String query = SELECT_ALL_ROW_FROM_TABLE + LESSON_TABLE +
@@ -278,5 +304,27 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
         Cursor data = db.rawQuery(query, null);
         Log.d(TAG, "getLessonsOfBook: query was successful");
         return data;
+    }
+
+    /**
+     * Updating a book data: tittle and languages.
+     * @param oldTittle The original tittle.
+     * @param oldLanguage1 The original first language.
+     * @param oldLanguage2 The original second language.
+     * @param newTittle The new book title.
+     * @param newLanguage1 The new first language.
+     * @param newLanguage2 The new second language.
+     */
+    public void updateBookData(String oldTittle, String oldLanguage1, String oldLanguage2,
+                         String newTittle, String newLanguage1, String newLanguage2){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(BOOK_TITLE, newTittle);
+        contentValues.put(FIRST_LANGUAGE, newLanguage1);
+        contentValues.put(SECOND_LANGUAGE, newLanguage2);
+        db.update(BOOK_TABLE, contentValues,
+                BOOK_TITLE + " = '" + oldTittle + "' and " +
+                FIRST_LANGUAGE + " = '" + oldLanguage1 + "' and " +
+                SECOND_LANGUAGE + " = '" + oldLanguage2 + "'", null);
     }
 }

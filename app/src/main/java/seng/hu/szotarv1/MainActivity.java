@@ -1,7 +1,10 @@
 package seng.hu.szotarv1;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 //import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -49,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout layoutWhatsApp;
     public static final String BOOK_TITLE = "book title";
     private static final int EDIT_REQUEST_CODE = 0;
+    private boolean editMode;
+
+    FloatingActionButton fabEditMode;
+    FloatingActionButton fabAddBook;
+    FloatingActionButton fabAddLesson;
+    FloatingActionButton fabAddWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,22 +78,41 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        editMode = false;
 
         listView = findViewById(R.id.listViewBooks);
         listView.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intentLessonList = new Intent(MainActivity.this, LessonsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(BOOK_TITLE, adapterView.getItemAtPosition(i).toString());
-                intentLessonList.putExtras(bundle);
-                startActivityForResult(intentLessonList, EDIT_REQUEST_CODE);
+                if (!editMode) {
+                    Intent intentLessonList = new Intent(MainActivity.this, LessonsActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(BOOK_TITLE, adapterView.getItemAtPosition(i).toString());
+                    intentLessonList.putExtras(bundle);
+                    startActivityForResult(intentLessonList, EDIT_REQUEST_CODE);
+                } else {
+                    Intent intentBookEdit = new Intent(MainActivity.this, BookEditorActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(BOOK_TITLE, adapterView.getItemAtPosition(i).toString());
+                    intentBookEdit.putExtras(bundle);
+                    startActivityForResult(intentBookEdit, EDIT_REQUEST_CODE);
+                    fabEditMode.setColorNormal(getColor(R.color.colorPrimary));
+                    listView.setBackgroundColor(getColor(R.color.white));
+                    editMode = false;
+                }
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                return false;
             }
         });
         init();
 
 
-        FloatingActionButton fabAddWord = findViewById(R.id.fabAddWord);
+        fabAddWord = findViewById(R.id.fabAddWord);
         fabAddWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fabAddLesson = findViewById(R.id.fabAddLesson);
+        fabAddLesson = findViewById(R.id.fabAddLesson);
         fabAddLesson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,12 +129,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fabAddBook = findViewById(R.id.fabAddBook);
+        fabAddBook = findViewById(R.id.fabAddBook);
         fabAddBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentAddBook = new Intent(MainActivity.this, AddBookActivity.class);
                 startActivityForResult(intentAddBook, EDIT_REQUEST_CODE);
+            }
+        });
+
+        fabEditMode = findViewById(R.id.fabEditMode);
+        fabEditMode.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+                if (editMode) {
+                    editMode = false;
+                    fabEditMode.setColorNormal(getColor(R.color.colorPrimary));
+                    listView.setBackgroundColor(getColor(R.color.white));
+                    populateListView();
+                }
+                else {
+                    editMode = true;
+                    fabEditMode.setColorNormal(getColor(R.color.colorAccent));
+                    listView.setBackgroundColor(getColor(R.color.light_orange));
+                    populateListView();
+                }
             }
         });
     }
