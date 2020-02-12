@@ -17,6 +17,8 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
     public static final int NAME_POSITION = 1;
     public static final int LANGUAGE_1_POSITION = 2;
     public static final int LANGUAGE_2_POSITION = 3;
+    public static final int WORD_POSITION = 1;
+    public static final int MEANING_POSITION = 3;
 
     private static final String CREATE_TABLE = " create table if not exists ";
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
@@ -59,36 +61,39 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
     // Storing lessons of books.
     public static final String LESSON_TABLE = "lesson";
     private static final String LESSON_NAME = "name";
-    private static final String BOOK_ID_F = "book_id";
+    private static final String BOOK_TITTLE_F = "book_tittle_f";
     private static final String CREATE_LESSON_ID = ID + ID_TYPE;
     private static final String CREATE_LESSON_NAME = LESSON_NAME + STRING_TYPE_50;
-    private static final String CREATE_BOOK_ID_F = BOOK_ID_F + STRING_TYPE_50;
+    private static final String CREATE_BOOK_TITTLE_F = BOOK_TITTLE_F + STRING_TYPE_50;
     private static final String CREATE_LESSON_TABLE = CREATE_TABLE + LESSON_TABLE + " (" +
             CREATE_LESSON_ID + COMMA_SEPARATOR +
             CREATE_LESSON_NAME + COMMA_SEPARATOR +
-            CREATE_BOOK_ID_F + ");";
+            CREATE_BOOK_TITTLE_F + ");";
 
     public static final String WORD_TABLE = "words";
     private static final String WORD  = "word";
     private static final String LANGUAGE_NAME_F  = "language_name";
     private static final String MEANING = "meaning";
-    private static final String LESSON_ID_F = "lesson_id";
+    private static final String LESSON_NAME_F = "lesson_name_f";
     private static final String KNOWLEDGE = "knowledge";
+    private static final String BOOK_TITTLE_WORD_F = "book_tittle_f";
     private static final String EXAMPLE_SENTENCE = "example_sentence";
     private static final String CREATE_WORD_ID = ID + ID_TYPE;
     private static final String CREATE_WORD = WORD + STRING_TYPE_100;
     private static final String CREATE_LANGUAGE_NAME_F = LANGUAGE_NAME_F + STRING_TYPE_50;
     private static final String CREATE_MEANING = MEANING + STRING_TYPE_200;
-    private static final String CREATE_LESSON_ID_F = LESSON_ID_F + STRING_TYPE_50;
+    private static final String CREATE_LESSON_NAME_F = LESSON_NAME_F + STRING_TYPE_50;
     private static final String CREATE_KNOWLEDGE = KNOWLEDGE + INT_TYPE;
     private static final String CREATE_EXAMPLE_SENTENCE = EXAMPLE_SENTENCE + STRING_TYPE_200;
+    private static final String CREATE_BOOK_TITTLE_WORD_F = BOOK_TITTLE_WORD_F + STRING_TYPE_50;
     private static final String CREATE_WORDS_TABLE = CREATE_TABLE + WORD_TABLE + " (" +
             CREATE_WORD_ID + COMMA_SEPARATOR +
             CREATE_WORD + COMMA_SEPARATOR +
             CREATE_LANGUAGE_NAME_F + COMMA_SEPARATOR +
             CREATE_MEANING + COMMA_SEPARATOR +
-            CREATE_LESSON_ID_F + COMMA_SEPARATOR +
+            CREATE_LESSON_NAME_F + COMMA_SEPARATOR +
             CREATE_KNOWLEDGE + COMMA_SEPARATOR +
+            CREATE_BOOK_TITTLE_WORD_F + COMMA_SEPARATOR +
             CREATE_EXAMPLE_SENTENCE + " );";
 
 
@@ -160,14 +165,14 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
     /**
      * Adding new lesson to a book
      * @param name Name of the lesson
-     * @param bookId ID of the book
+     * @param bookTittle Tittle of the book
      * @return true if the adding was successful false otherwise.
      */
-    public boolean addLesson(String name, String bookId){
+    public boolean addLesson(String name, String bookTittle){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(LESSON_NAME, name);
-        contentValues.put(BOOK_ID_F, bookId);
+        contentValues.put(BOOK_TITTLE_F, bookTittle);
 
         long result = db.insert(LESSON_TABLE, null, contentValues);
         if (-1 == result)
@@ -180,20 +185,47 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
      * @param word The new word, what we want to ad.
      * @param meaning The meanings of the word.
      * @param example An example sentence what describes the word.
-     * @param lessonId The ID of the lesson where you want to add the word.
+     * @param lessonName The name of the lesson where you want to add the word.
      * @return True if the inserting was successful false otherwise.
      */
-    public boolean addWord(String word, String meaning, String example, Integer lessonId, String languageName){
+    public boolean addWord(String word, String meaning, String example, Integer lessonName, String languageName){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(WORD, word);
         contentValues.put(MEANING, meaning);
         contentValues.put(EXAMPLE_SENTENCE, example);
-        contentValues.put(LESSON_ID_F, lessonId);
+        contentValues.put(LESSON_NAME, lessonName);
         contentValues.put(KNOWLEDGE, 0);
         contentValues.put(LANGUAGE_NAME_F, languageName);
 
         long result = db.insert(WORD_TABLE, null, contentValues);
+        if (result == -1)
+            return false;
+        return true;
+    }
+
+    /**
+     * Adding new word for a lesson.
+     * @param word The new word, what we want to ad.
+     * @param meaning The meanings of the word.
+     * @param example An example sentence what describes the word.
+     * @param lessonName The name of the lesson where you want to add the word.
+     * @return True if the inserting was successful false otherwise.
+     */
+    public boolean addWord(String word, String meaning, String example, String lessonName, String bookTittle){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(WORD, word);
+        contentValues.put(MEANING, meaning);
+        contentValues.put(EXAMPLE_SENTENCE, example);
+        contentValues.put(LESSON_NAME_F, lessonName);
+        contentValues.put(BOOK_TITTLE_WORD_F, bookTittle);
+        contentValues.put(KNOWLEDGE, 0);
+
+        long result = db.insert(WORD_TABLE, null, contentValues);
+        Log.d(TAG, "addWord: word:" + word + " meaning:" + meaning +
+                " example:" + example + " lesson:" + lessonName);
+        Log.d(TAG, "addWord: result code = " + result);
         if (result == -1)
             return false;
         return true;
@@ -215,38 +247,34 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
         return data;
     }
 
-    /**
-     * Getting all words of a lesson.
-     * @param lessonId The ID of a lesson what's words we want to get.
-     * @return The cursor of the words.
-     */
-    public Cursor getAllWordsOfLesson(Integer lessonId) {
+    public Cursor getAllWordsOfLesson(String bookTittle, String lessonName){
         SQLiteDatabase db = getWritableDatabase();
-        String query = "select " + WORD + ", " + MEANING +
-                " from " + WORD_TABLE +
-                " where " + LESSON_ID_F + " = '" + lessonId + "'";
+//        String query = SELECT_ALL_ROW_FROM_TABLE + WORD_TABLE;
+        String query = SELECT_ALL_ROW_FROM_TABLE + WORD_TABLE +
+                " where " + LESSON_NAME_F + " = '" + lessonName +
+                "' and " + BOOK_TITTLE_WORD_F + " = '" + bookTittle + "'";
         Log.d(TAG, "getAllWordsOfLesson: query: " + query);
         Cursor data = db.rawQuery(query, null);
         Log.d(TAG, "getAllWordsOfLesson: query run successfully");
         return data;
     }
 
-    /**
+/*    *//**
      * Getting all words of a book.
-     * @param bookId The ID of the book what's words we want to get.
+     * @param bookTittle The tiitle of the book what's words we want to get.
      * @return The cursor of the words.
-     */
-    public Cursor getAllWordsOfBook(Integer bookId) {
+     *//*
+    public Cursor getAllWordsOfBook(Integer bookTittle) {
         SQLiteDatabase db = getWritableDatabase();
         String query = "select " + WORD + ", " + MEANING +
                 " from " + WORD_TABLE + " as w " +
                 " join " + LESSON_TABLE + " as l on w." + LESSON_ID_F + " = l." + ID +
-                " where l." + BOOK_ID_F + " = '" + bookId + "'";
+                " where l." + BOOK_TITTLE_F + " = '" + bookTittle + "'";
         Log.d(TAG, "getAllWordsOfBook: query: " + query);
         Cursor data = db.rawQuery(query, null);
         Log.d(TAG, "getAllWordsOfBook: query run successfully");
         return data;
-    }
+    }*/
 
     /**
      * Getting all data from books table.
@@ -298,7 +326,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
     public Cursor getLessonsOfBook(String title){
         SQLiteDatabase db = getWritableDatabase();
         String query = SELECT_ALL_ROW_FROM_TABLE + LESSON_TABLE +
-                " where " + BOOK_ID_F + " in (select id from " + BOOK_TABLE +
+                " where " + BOOK_TITTLE_F + " in (select " + BOOK_TITLE +" from " + BOOK_TABLE +
                 " where " + BOOK_TITLE + " = '" + title + "')";
         Log.d(TAG, "getLessonsOfBook query: "  + query);
         Cursor data = db.rawQuery(query, null);

@@ -51,7 +51,7 @@ public class AddLessonActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), getString(R.string.all_fields_are_required_error), Toast.LENGTH_LONG).show();
         else {
             //Toast.makeText(getBaseContext(), spinnerBook.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
-            dbLite.addLesson(editTextLessonName.getText().toString(), dbLite.getBookIdByTitle(spinnerBook.getSelectedItem().toString()));
+            dbLite.addLesson(editTextLessonName.getText().toString(), spinnerBook.getSelectedItem().toString());
             finish();
         }
     }

@@ -20,6 +20,9 @@
     <string name="book_language_2">2nd Language</string>
     <string name="ready">Ready</string>
     <string name="lesson">Lesson</string>
+    <string name="add">Add</string>
+    <string name="word">Word</string>
+    <string name="meaning">Meaning</string>
 
     <!-- Fab Icon titles -->
     <string name="add_book">New book</string>
