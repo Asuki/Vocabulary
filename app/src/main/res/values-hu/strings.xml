@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Szótár</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Beállítások</string>
+
+    <string name="menu_books">Könyvek</string>
+    <string name="menu_gallery">Galéria</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Eszközök</string>
+    <string name="menu_share">Megosztás</string>
+    <string name="menu_send">Küldés</string>
+
+    <!-- Activities Labels -->
+    <string name="book_title">Könyv cím</string>
+    <string name="book_language_1">1. Nyelv</string>
+    <string name="book_language_2">2. Nyelv</string>
+    <string name="ready">Kész</string>
+    <string name="lesson">Lecke</string>
+    <string name="add">Hozzáad</string>
+    <string name="word">Szó</string>
+    <string name="meaning">Jelentés</string>
+
+    <!-- Fab Icon titles -->
+    <string name="add_book">Új könyv</string>
+    <string name="add_lesson">Új lecke</string>
+    <string name="add_word">Új szó</string>
+    <string name="edit_mode">Szerkesztő mód</string>
+
+    <!-- Errors -->
+    <string name="all_fields_are_required_error">Minden mező kötelező!</string>
+    <string name="add_book_first_error">Először addj hozzákönyvet!</string>
+</resources>
