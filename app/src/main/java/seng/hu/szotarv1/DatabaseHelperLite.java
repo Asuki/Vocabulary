@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -348,15 +349,28 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
      * @param newLanguage2 The new second language.
      */
     public void updateBookData(String oldTittle, String oldLanguage1, String oldLanguage2,
-                         String newTittle, String newLanguage1, String newLanguage2){
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(BOOK_TITLE, newTittle);
-        contentValues.put(FIRST_LANGUAGE, newLanguage1);
-        contentValues.put(SECOND_LANGUAGE, newLanguage2);
-        db.update(BOOK_TABLE, contentValues,
-                BOOK_TITLE + " = '" + oldTittle + "' and " +
-                FIRST_LANGUAGE + " = '" + oldLanguage1 + "' and " +
-                SECOND_LANGUAGE + " = '" + oldLanguage2 + "'", null);
+                         String newTittle, String newLanguage1, String newLanguage2,
+                               Context context){
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(BOOK_TITLE, newTittle);
+            contentValues.put(FIRST_LANGUAGE, newLanguage1);
+            contentValues.put(SECOND_LANGUAGE, newLanguage2);
+            db.update(BOOK_TABLE, contentValues,
+                    BOOK_TITLE + " = '" + oldTittle + "' and " +
+                            FIRST_LANGUAGE + " = '" + oldLanguage1 + "' and " +
+                            SECOND_LANGUAGE + " = '" + oldLanguage2 + "'", null);
+            ContentValues contentValuesLesson = new ContentValues();
+            ContentValues contentValuesWord = new ContentValues();
+            contentValuesLesson.put(BOOK_TITTLE_F, newTittle);
+            contentValuesWord.put(BOOK_TITTLE_WORD_F, newTittle);
+            db.update(LESSON_TABLE, contentValuesLesson, "1 = 1", null);
+            db.update(WORD_TABLE, contentValuesWord, "1 = 1", null);
+
+        }
+        catch (Exception e){
+            Toast.makeText(context, context.getString(R.string.the_book_is_exists_error), Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -68,7 +68,8 @@ public class BookEditorActivity extends AppCompatActivity {
             dbLite.updateBookData(bookTitle, language1, language2,
                     editTextBookTitle.getText().toString(),
                     editTextLanguage1.getText().toString(),
-                    editTextLanguage2.getText().toString());
+                    editTextLanguage2.getText().toString(),
+                    getBaseContext());
             finish();
         }
     }

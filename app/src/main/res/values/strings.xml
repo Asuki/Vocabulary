@@ -33,4 +33,5 @@
     <!-- Errors -->
     <string name="all_fields_are_required_error">All fields are required!</string>
     <string name="add_book_first_error">Add books at first!</string>
+    <string name="the_book_is_exists_error">The book tittle is already exists!</string>
 </resources>
