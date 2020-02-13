@@ -23,6 +23,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
     private static final String CREATE_TABLE = " create table if not exists ";
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
     private static final String ID_TYPE = " integer primary key autoincrement";
+    private static final String STRING_TYPE_10 = " varchar(10)";
     private static final String STRING_TYPE_50 = " varchar(50)";
     private static final String STRING_TYPE_100 = " varchar(100)";
     private static final String STRING_TYPE_200 = " varchar(200)";
@@ -78,6 +79,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
     private static final String KNOWLEDGE = "knowledge";
     private static final String BOOK_TITTLE_WORD_F = "book_tittle_f";
     private static final String EXAMPLE_SENTENCE = "example_sentence";
+    private static final String WORD_ARTICLE = "article";
     private static final String CREATE_WORD_ID = ID + ID_TYPE;
     private static final String CREATE_WORD = WORD + STRING_TYPE_100;
     private static final String CREATE_LANGUAGE_NAME_F = LANGUAGE_NAME_F + STRING_TYPE_50;
@@ -86,6 +88,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
     private static final String CREATE_KNOWLEDGE = KNOWLEDGE + INT_TYPE;
     private static final String CREATE_EXAMPLE_SENTENCE = EXAMPLE_SENTENCE + STRING_TYPE_200;
     private static final String CREATE_BOOK_TITTLE_WORD_F = BOOK_TITTLE_WORD_F + STRING_TYPE_50;
+    private static final String CREATE_WORD_ARTICLE = WORD_ARTICLE + STRING_TYPE_10;
     private static final String CREATE_WORDS_TABLE = CREATE_TABLE + WORD_TABLE + " (" +
             CREATE_WORD_ID + COMMA_SEPARATOR +
             CREATE_WORD + COMMA_SEPARATOR +
@@ -252,7 +255,8 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
 //        String query = SELECT_ALL_ROW_FROM_TABLE + WORD_TABLE;
         String query = SELECT_ALL_ROW_FROM_TABLE + WORD_TABLE +
                 " where " + LESSON_NAME_F + " = '" + lessonName +
-                "' and " + BOOK_TITTLE_WORD_F + " = '" + bookTittle + "'";
+                "' and " + BOOK_TITTLE_WORD_F + " = '" + bookTittle + "'" +
+                " order by " + WORD;
         Log.d(TAG, "getAllWordsOfLesson: query: " + query);
         Cursor data = db.rawQuery(query, null);
         Log.d(TAG, "getAllWordsOfLesson: query run successfully");
@@ -282,7 +286,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
      */
     public Cursor getBooks(){
         SQLiteDatabase db = getWritableDatabase();
-        String query = SELECT_ALL_ROW_FROM_TABLE + BOOK_TABLE;
+        String query = SELECT_ALL_ROW_FROM_TABLE + BOOK_TABLE + " order by " + BOOK_TITLE;
         Log.d(TAG, "getBooks. query: " + query);
         Cursor data = db.rawQuery(query, null);
         Log.d(TAG, "getBooks: query was successful");

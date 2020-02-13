@@ -41,7 +41,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
+//    private AppBarConfiguration mAppBarConfiguration;
     ListView listView;
     ArrayList<String> bookList;
     DatabaseHelperLite dbLite;
@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout layoutWhatsApp;
     public static final String BOOK_TITLE = "book title";
     private static final int EDIT_REQUEST_CODE = 0;
+    public static final String ADD_WORD_MODE = "add_word_mode";
+    public static final String WORD_MODE_ONE = "one";
+    public static final String WORD_MODE_ALL = "all";
     private boolean editMode;
 
     FloatingActionButton fabEditMode;
@@ -70,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
-                .setDrawerLayout(drawer)
-                .build();
+//        mAppBarConfiguration = new AppBarConfiguration.Builder(
+//                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
+//                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+//                .setDrawerLayout(drawer)
+//                .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+//        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         editMode = false;
 
@@ -116,7 +119,9 @@ public class MainActivity extends AppCompatActivity {
         fabAddWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Új szó ide", Toast.LENGTH_SHORT).show();
+                Intent intentAddWord = new Intent(MainActivity.this, AddNewWordActivity.class);
+                intentAddWord.putExtra(ADD_WORD_MODE, WORD_MODE_ALL);
+                startActivity(intentAddWord);
             }
         });
 
@@ -191,16 +196,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        // getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+//        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+//                || super.onSupportNavigateUp();
+//    }
 
     private void populateListView(){
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, bookList);

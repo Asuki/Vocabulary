@@ -20,7 +20,7 @@ public class WordListActivity extends AppCompatActivity {
     ListView listViewWordList;
     Intent intent;
     DatabaseHelperLite dbLite;
-    ArrayList<String> wordList;
+    ArrayList<WordData> wordList;
     FloatingActionButton floatingActionButtonAddWord;
     private static final int EDIT_REQUEST_CODE = 0;
     private static final String TAG = "WordListActivity";
@@ -44,6 +44,7 @@ public class WordListActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString(MainActivity.BOOK_TITLE, bookTittle);
                 bundle.putString(AddNewWordActivity.LESSON_NAME_WORD, lessonName);
+                bundle.putString(MainActivity.ADD_WORD_MODE, MainActivity.WORD_MODE_ONE);
                 Log.i(TAG, "onClick: ln = " + lessonName);
                 intentAddWord.putExtras(bundle);
                 startActivityForResult(intentAddWord, EDIT_REQUEST_CODE);
@@ -69,11 +70,10 @@ public class WordListActivity extends AppCompatActivity {
     private void fillWordList(){
         wordList.clear();
         Cursor data = dbLite.getAllWordsOfLesson(bookTittle, lessonName);
-        int i = 0;
         while (data.moveToNext()){
-            String tmp = data.getString(DatabaseHelperLite.WORD_POSITION);
-            wordList.add(tmp);
-            Log.i(TAG, "fillWordList: index = " + i++ + "|" + tmp);
+            String wordTmp = data.getString(DatabaseHelperLite.WORD_POSITION);
+            String meaningTmp = data.getString(DatabaseHelperLite.MEANING_POSITION);
+            wordList.add(new WordData(wordTmp, meaningTmp));
         }
 
     }
@@ -86,7 +86,7 @@ public class WordListActivity extends AppCompatActivity {
     }
 
     private void populateListView() {
-        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, wordList);
+        ArrayAdapter adapter = new WordDataAdapter(this.getBaseContext(), R.layout.adapter_view_double_col, wordList);
         Log.d(TAG, "populateListView: cnt = " + wordList.size());
         listViewWordList.setAdapter(adapter);
     }
