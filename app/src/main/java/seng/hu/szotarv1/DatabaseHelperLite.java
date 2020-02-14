@@ -243,9 +243,11 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
      */
     public Cursor getAllWords(String language) {
         SQLiteDatabase db = getWritableDatabase();
-        String query = "select " + WORD + ", " + MEANING +
-                " from " + WORD_TABLE +
-                " where " + LANGUAGE_NAME_F + " = " + language;
+        String query = "select w.*" + " from " +
+                WORD_TABLE + " as w join " + BOOK_TABLE + " as b on b."
+                + BOOK_TITLE + " = w." + BOOK_TITTLE_WORD_F +
+                " where b." + FIRST_LANGUAGE + " = '" + language + "' or b." +
+                SECOND_LANGUAGE + " = '" + language + "'";
         Log.d(TAG, "getAllWords: query: " + query);
         Cursor data = db.rawQuery(query, null);
         Log.d(TAG, "getAllWords: query run successfully");
