@@ -58,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String WORD_MODE_ALL = "all";
     private boolean editMode;
 
-    FloatingActionButton fabEditMode;
-    FloatingActionButton fabAddBook;
-    FloatingActionButton fabAddLesson;
-    FloatingActionButton fabAddWord;
+//    FloatingActionButton fabEditMode;
+//    FloatingActionButton fabAddBook;
+//    FloatingActionButton fabAddLesson;
+//    FloatingActionButton fabAddWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,53 +119,53 @@ public class MainActivity extends AppCompatActivity {
         init();
 
 
-        fabAddWord = findViewById(R.id.fabAddWord);
-        fabAddWord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentAddWord = new Intent(MainActivity.this, AddNewWordActivity.class);
-                intentAddWord.putExtra(ADD_WORD_MODE, WORD_MODE_ALL);
-                startActivity(intentAddWord);
-            }
-        });
-
-        fabAddLesson = findViewById(R.id.fabAddLesson);
-        fabAddLesson.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentAddLesson = new Intent(MainActivity.this, AddLessonActivity.class);
-                startActivityForResult(intentAddLesson, EDIT_REQUEST_CODE);
-            }
-        });
-
-        fabAddBook = findViewById(R.id.fabAddBook);
-        fabAddBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentAddBook = new Intent(MainActivity.this, AddBookActivity.class);
-                startActivityForResult(intentAddBook, EDIT_REQUEST_CODE);
-            }
-        });
-
-        fabEditMode = findViewById(R.id.fabEditMode);
-        fabEditMode.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void onClick(View view) {
-                if (editMode) {
-                    editMode = false;
-                    fabEditMode.setColorNormal(getColor(R.color.colorPrimary));
-//                    listView.setBackgroundColor(getColor(R.color.white));
-//                    populateListView();
-                }
-                else {
-                    editMode = true;
-                    fabEditMode.setColorNormal(getColor(R.color.colorAccent));
-//                    listView.setBackgroundColor(getColor(R.color.light_orange));
-//                    populateListView();
-                }
-            }
-        });
+//        fabAddWord = findViewById(R.id.fabAddWord);
+//        fabAddWord.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intentAddWord = new Intent(MainActivity.this, AddNewWordActivity.class);
+//                intentAddWord.putExtra(ADD_WORD_MODE, WORD_MODE_ALL);
+//                startActivity(intentAddWord);
+//            }
+//        });
+//
+//        fabAddLesson = findViewById(R.id.fabAddLesson);
+//        fabAddLesson.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intentAddLesson = new Intent(MainActivity.this, AddLessonActivity.class);
+//                startActivityForResult(intentAddLesson, EDIT_REQUEST_CODE);
+//            }
+//        });
+//
+//        fabAddBook = findViewById(R.id.fabAddBook);
+//        fabAddBook.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intentAddBook = new Intent(MainActivity.this, AddBookActivity.class);
+//                startActivityForResult(intentAddBook, EDIT_REQUEST_CODE);
+//            }
+//        });
+//
+//        fabEditMode = findViewById(R.id.fabEditMode);
+//        fabEditMode.setOnClickListener(new View.OnClickListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.M)
+//            @Override
+//            public void onClick(View view) {
+//                if (editMode) {
+//                    editMode = false;
+//                    fabEditMode.setColorNormal(getColor(R.color.colorPrimary));
+////                    listView.setBackgroundColor(getColor(R.color.white));
+////                    populateListView();
+//                }
+//                else {
+//                    editMode = true;
+//                    fabEditMode.setColorNormal(getColor(R.color.colorAccent));
+////                    listView.setBackgroundColor(getColor(R.color.light_orange));
+////                    populateListView();
+//                }
+//            }
+//        });
     }
 
     @Override

@@ -20,11 +20,16 @@ import androidx.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
 
+import seng.hu.szotarv1.AddingElements.AddBookActivity;
+import seng.hu.szotarv1.AddingElements.AddLessonActivity;
+import seng.hu.szotarv1.AddingElements.AddNewWordActivity;
 import seng.hu.szotarv1.BookEditorActivity;
 import seng.hu.szotarv1.DatabaseHelperLite;
 import seng.hu.szotarv1.Listing.LessonsActivity;
 import seng.hu.szotarv1.MainActivity;
 import seng.hu.szotarv1.R;
+
+import com.github.clans.fab.FloatingActionButton;
 
 public class HomeFragment extends Fragment {
 
@@ -34,6 +39,17 @@ public class HomeFragment extends Fragment {
     private static final int EDIT_REQUEST_CODE = 0;
     DatabaseHelperLite dbLite;
     ArrayList<String> bookList;
+
+    public static final String BOOK_TITLE = "book title";
+    public static final String ADD_WORD_MODE = "add_word_mode";
+    public static final String WORD_MODE_ONE = "one";
+    public static final String WORD_MODE_ALL = "all";
+
+
+    FloatingActionButton fabEditMode;
+    FloatingActionButton fabAddBook;
+    FloatingActionButton fabAddLesson;
+    FloatingActionButton fabAddWord;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -67,7 +83,7 @@ public class HomeFragment extends Fragment {
                     bundle.putString(MainActivity.BOOK_TITLE, adapterView.getItemAtPosition(i).toString());
                     intentBookEdit.putExtras(bundle);
                     startActivityForResult(intentBookEdit, EDIT_REQUEST_CODE);
-//                    fabEditMode.setColorNormal(getActivity().getColor(R.color.colorPrimary));
+                    fabEditMode.setColorNormal(getActivity().getColor(R.color.colorPrimary));
                     listView.setBackgroundColor(getActivity().getColor(R.color.white));
                     editMode = false;
                 }
@@ -77,6 +93,54 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 return false;
+            }
+        });
+
+        fabAddWord = root.findViewById(R.id.fabAddWord);
+        fabAddWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAddWord = new Intent(getActivity(), AddNewWordActivity.class);
+                intentAddWord.putExtra(ADD_WORD_MODE, WORD_MODE_ALL);
+                startActivity(intentAddWord);
+            }
+        });
+
+        fabAddLesson = root.findViewById(R.id.fabAddLesson);
+        fabAddLesson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAddLesson = new Intent(getActivity(), AddLessonActivity.class);
+                startActivityForResult(intentAddLesson, EDIT_REQUEST_CODE);
+            }
+        });
+
+        fabAddBook = root.findViewById(R.id.fabAddBook);
+        fabAddBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAddBook = new Intent(getActivity(), AddBookActivity.class);
+                startActivityForResult(intentAddBook, EDIT_REQUEST_CODE);
+            }
+        });
+
+        fabEditMode = root.findViewById(R.id.fabEditMode);
+        fabEditMode.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+                if (editMode) {
+                    editMode = false;
+                    fabEditMode.setColorNormal(getActivity().getColor(R.color.colorPrimary));
+                    listView.setBackgroundColor(getActivity().getColor(R.color.white));
+                    populateListView();
+                }
+                else {
+                    editMode = true;
+                    fabEditMode.setColorNormal(getActivity().getColor(R.color.colorAccent));
+                    listView.setBackgroundColor(getActivity().getColor(R.color.light_orange));
+                    populateListView();
+                }
             }
         });
 
