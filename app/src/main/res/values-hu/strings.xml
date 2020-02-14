@@ -9,6 +9,7 @@
     <string name="action_settings">Beállítások</string>
 
     <string name="menu_books">Könyvek</string>
+    <string name="menu_lessons">Leckék</string>
     <string name="menu_gallery">Galéria</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Eszközök</string>
@@ -35,5 +36,4 @@
     <string name="all_fields_are_required_error">Minden mező kötelező!</string>
     <string name="add_book_first_error">Először addj hozzákönyvet!</string>
     <string name="the_book_is_exists_error">A könyv cím már létezik!</string>
-    <string name="menu_lessons">Leckék</string>
 </resources>

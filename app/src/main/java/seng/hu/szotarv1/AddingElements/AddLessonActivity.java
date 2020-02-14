@@ -1,4 +1,4 @@
-package seng.hu.szotarv1;
+package seng.hu.szotarv1.AddingElements;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import seng.hu.szotarv1.DatabaseHelperLite;
+import seng.hu.szotarv1.R;
 
 public class AddLessonActivity extends AppCompatActivity {
 

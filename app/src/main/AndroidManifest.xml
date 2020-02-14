@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WordListActivity"></activity>
-        <activity android:name=".AddNewWordActivity" />
+        <activity android:name=".Listing.WordListActivity"></activity>
+        <activity android:name=".AddingElements.AddNewWordActivity" />
         <activity android:name=".BookEditorActivity" />
-        <activity android:name=".LessonsActivity" />
-        <activity android:name=".AddLessonActivity" />
-        <activity android:name=".AddBookActivity" />
+        <activity android:name=".Listing.LessonsActivity" />
+        <activity android:name=".AddingElements.AddLessonActivity" />
+        <activity android:name=".AddingElements.AddBookActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

@@ -1,4 +1,4 @@
-package seng.hu.szotarv1;
+package seng.hu.szotarv1.AddingElements;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import seng.hu.szotarv1.DatabaseHelperLite;
+import seng.hu.szotarv1.R;
 
 public class AddBookActivity extends AppCompatActivity {
 

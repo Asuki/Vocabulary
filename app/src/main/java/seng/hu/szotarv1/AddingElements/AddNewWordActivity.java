@@ -1,4 +1,4 @@
-package seng.hu.szotarv1;
+package seng.hu.szotarv1.AddingElements;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+
+import seng.hu.szotarv1.DatabaseHelperLite;
+import seng.hu.szotarv1.MainActivity;
+import seng.hu.szotarv1.R;
 
 public class AddNewWordActivity extends AppCompatActivity {
 

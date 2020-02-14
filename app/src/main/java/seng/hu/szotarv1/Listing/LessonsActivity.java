@@ -1,7 +1,6 @@
-package seng.hu.szotarv1;
+package seng.hu.szotarv1.Listing;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,11 +10,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+
+import seng.hu.szotarv1.DatabaseHelperLite;
+import seng.hu.szotarv1.MainActivity;
+import seng.hu.szotarv1.R;
 
 public class LessonsActivity extends AppCompatActivity {
 

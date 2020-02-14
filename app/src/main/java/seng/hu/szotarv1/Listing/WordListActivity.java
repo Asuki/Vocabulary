@@ -1,4 +1,4 @@
-package seng.hu.szotarv1;
+package seng.hu.szotarv1.Listing;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,13 @@ import android.widget.ListView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+
+import seng.hu.szotarv1.AddingElements.AddNewWordActivity;
+import seng.hu.szotarv1.DatabaseHelperLite;
+import seng.hu.szotarv1.MainActivity;
+import seng.hu.szotarv1.R;
+import seng.hu.szotarv1.WordData;
+import seng.hu.szotarv1.WordDataAdapter;
 
 public class WordListActivity extends AppCompatActivity {
 
