@@ -10,6 +10,8 @@
 
     <string name="menu_books">Books</string>
     <string name="menu_lessons">Lessons</string>
+<!--    <string name="menu_languages">Words by languages</string>-->
+    <string name="menu_languages">Languages</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>

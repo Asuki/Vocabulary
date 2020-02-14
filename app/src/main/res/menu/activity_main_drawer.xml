@@ -8,6 +8,10 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_library_books"
             android:title="@string/menu_books" />
+        <item
+            android:id="@+id/nav_languages"
+            android:icon="@drawable/ic_language"
+            android:title="@string/menu_languages" />
         <!--
         <item
             android:id="@+id/nav_gallery"

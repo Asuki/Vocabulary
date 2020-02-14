@@ -136,6 +136,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
         contentValues.put(LANGUAGE_NAME, language);
 
         long result = db.insert(LANGUAGE_TABLE, null, contentValues);
+        Log.d(TAG, "addLanguage: adding language result: " + result);
         if(-1 == result)
             return false;
         return true;
@@ -291,6 +292,15 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
         Log.d(TAG, "getBooks. query: " + query);
         Cursor data = db.rawQuery(query, null);
         Log.d(TAG, "getBooks: query was successful");
+        return data;
+    }
+
+    public Cursor getLanguages(){
+        SQLiteDatabase db = getWritableDatabase();
+        String query = SELECT_ALL_ROW_FROM_TABLE + LANGUAGE_TABLE;
+        Log.d(TAG, "getLanguages. query: " + query);
+        Cursor data = db.rawQuery(query, null);
+        Log.d(TAG, "getLanguages: query was successful");
         return data;
     }
 
