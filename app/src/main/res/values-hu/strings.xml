@@ -10,8 +10,8 @@
 
     <string name="menu_books">Könyvek</string>
     <string name="menu_lessons">Leckék</string>
-<!--    <string name="menu_languages">Szavak nyelvek szerint</string>-->
-    <string name="menu_languages">Nyelvek</string>
+    <string name="menu_languages">Szavak nyelvek szerint</string>
+<!--    <string name="menu_languages">Nyelvek</string>-->
     <string name="menu_gallery">Galéria</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Eszközök</string>
