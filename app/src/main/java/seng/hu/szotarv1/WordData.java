@@ -1,8 +1,17 @@
 package seng.hu.szotarv1;
 
 public class WordData {
+    private String id;
     private String word;
     private String meaning;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getWord() {
         return word;
@@ -20,7 +29,8 @@ public class WordData {
         this.meaning = meaning;
     }
 
-    public WordData(String word, String meaning) {
+    public WordData(String id, String word, String meaning) {
+        this.id = id;
         this.word = word;
         this.meaning = meaning;
     }

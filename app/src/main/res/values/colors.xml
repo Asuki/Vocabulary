@@ -6,8 +6,8 @@
     <color name="colorSecondaryInverse">#DDD</color>
     <color name="colorAccent">#D81B60</color>
     <color name="black">#000</color>
-    <color name="red">#FF0700</color>
-    <color name="green">#00C90D</color>
+    <color name="red">#FC3F4D</color>
+    <color name="green">#36D986</color>
     <color name="white">#FFF</color>
     <color name="light_orange">#FFE396</color>
 </resources>

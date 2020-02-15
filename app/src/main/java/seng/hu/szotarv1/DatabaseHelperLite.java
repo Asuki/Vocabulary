@@ -247,7 +247,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
                 WORD_TABLE + " as w join " + BOOK_TABLE + " as b on b."
                 + BOOK_TITLE + " = w." + BOOK_TITTLE_WORD_F +
                 " where b." + FIRST_LANGUAGE + " = '" + language + "' or b." +
-                SECOND_LANGUAGE + " = '" + language + "'";
+                SECOND_LANGUAGE + " = '" + language + "' order by w." + WORD;
         Log.d(TAG, "getAllWords: query: " + query);
         Cursor data = db.rawQuery(query, null);
         Log.d(TAG, "getAllWords: query run successfully");
@@ -267,22 +267,38 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
         return data;
     }
 
-/*    *//**
-     * Getting all words of a book.
-     * @param bookTittle The tiitle of the book what's words we want to get.
-     * @return The cursor of the words.
-     *//*
-    public Cursor getAllWordsOfBook(Integer bookTittle) {
+    public Cursor getWord(String wordId){
         SQLiteDatabase db = getWritableDatabase();
-        String query = "select " + WORD + ", " + MEANING +
-                " from " + WORD_TABLE + " as w " +
-                " join " + LESSON_TABLE + " as l on w." + LESSON_ID_F + " = l." + ID +
-                " where l." + BOOK_TITTLE_F + " = '" + bookTittle + "'";
-        Log.d(TAG, "getAllWordsOfBook: query: " + query);
+        String query = SELECT_ALL_ROW_FROM_TABLE + WORD_TABLE +
+                " where " + ID + " = '" + wordId + "'";
+        Log.d(TAG, "getWord: query: " + query);
         Cursor data = db.rawQuery(query, null);
-        Log.d(TAG, "getAllWordsOfBook: query run successfully");
+        Log.d(TAG, "getWord: query run successfully");
         return data;
-    }*/
+    }
+
+    /**
+     * Delete a word from Word table.
+     * @param wordId The id of the word.
+     */
+    public void deleteWord(String wordId){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(WORD_TABLE, ID + " = '" + wordId + "'", null);
+    }
+
+    /**
+     * Updates the data of the word.
+     * @param wordId The id of the word.
+     * @param word The new word.
+     * @param meaning The new meaning of the word.
+     */
+    public void updateWord(String wordId, String word, String meaning){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(WORD, word);
+        contentValues.put(MEANING, meaning);
+        db.update(WORD_TABLE, contentValues, ID + " = '" + wordId + "'", null);
+    }
 
     /**
      * Getting all data from books table.

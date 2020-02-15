@@ -45,7 +45,8 @@ public class LanguageWordList extends AppCompatActivity {
         while (data.moveToNext()){
             String wordTmp = data.getString(DatabaseHelperLite.WORD_POSITION);
             String meaningTmp = data.getString(DatabaseHelperLite.MEANING_POSITION);
-            wordList.add(new WordData(wordTmp, meaningTmp));
+            // ToDo Add id to delete word from full list
+            wordList.add(new WordData("0", wordTmp, meaningTmp));
         }
         ArrayAdapter adapter = new WordDataAdapter(this.getBaseContext(), R.layout.adapter_view_double_col, wordList);
         listViewLanguageWordList.setAdapter(adapter);

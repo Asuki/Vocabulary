@@ -17,11 +17,14 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
 
+    <!-- Button labels -->
+    <string name="ready">Ready</string>
+    <string name="delete">Delete</string>
+
     <!-- Activities Labels -->
     <string name="book_title">Book Title</string>
     <string name="book_language_1">1st Language</string>
     <string name="book_language_2">2nd Language</string>
-    <string name="ready">Ready</string>
     <string name="lesson">Lesson</string>
     <string name="add">Add</string>
     <string name="word">Word</string>

@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 import seng.hu.szotarv1.AddingElements.AddNewWordActivity;
 import seng.hu.szotarv1.DatabaseHelperLite;
+import seng.hu.szotarv1.EditWordActivity;
 import seng.hu.szotarv1.MainActivity;
 import seng.hu.szotarv1.R;
 import seng.hu.szotarv1.WordData;
@@ -41,8 +43,6 @@ public class WordListActivity extends AppCompatActivity {
 
         initItems();
 
-
-
         floatingActionButtonAddWord = findViewById(R.id.floatingActionButtonWordList);
         floatingActionButtonAddWord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +55,17 @@ public class WordListActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick: ln = " + lessonName);
                 intentAddWord.putExtras(bundle);
                 startActivityForResult(intentAddWord, EDIT_REQUEST_CODE);
+            }
+        });
+
+        listViewWordList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intentWord = new Intent(WordListActivity.this, EditWordActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(EditWordActivity.WORD_ID, wordList.get(i).getId());
+                intentWord.putExtras(bundle);
+                startActivityForResult(intentWord, EDIT_REQUEST_CODE);
             }
         });
 
@@ -80,7 +91,8 @@ public class WordListActivity extends AppCompatActivity {
         while (data.moveToNext()){
             String wordTmp = data.getString(DatabaseHelperLite.WORD_POSITION);
             String meaningTmp = data.getString(DatabaseHelperLite.MEANING_POSITION);
-            wordList.add(new WordData(wordTmp, meaningTmp));
+            String wordId = String.valueOf(data.getInt(DatabaseHelperLite.ID_POSITION));
+            wordList.add(new WordData(wordId, wordTmp, meaningTmp));
         }
 
     }

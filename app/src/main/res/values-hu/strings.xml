@@ -18,11 +18,14 @@
     <string name="menu_share">Megosztás</string>
     <string name="menu_send">Küldés</string>
 
+    <!-- Button labels -->
+    <string name="ready">Kész</string>
+    <string name="delete">Törlés</string>
+
     <!-- Activities Labels -->
     <string name="book_title">Könyv cím</string>
     <string name="book_language_1">1. Nyelv</string>
     <string name="book_language_2">2. Nyelv</string>
-    <string name="ready">Kész</string>
     <string name="lesson">Lecke</string>
     <string name="add">Hozzáad</string>
     <string name="word">Szó</string>
