@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -72,6 +73,8 @@ public class AddNewWordActivity extends AppCompatActivity {
         lessonList = new ArrayList<>();
 
         listAll = intent.getStringExtra(MainActivity.ADD_WORD_MODE).equals(MainActivity.WORD_MODE_ALL);
+
+        setEditTextInputType();
     }
 
     private void setData(){
@@ -96,6 +99,11 @@ public class AddNewWordActivity extends AppCompatActivity {
         spinnerLesson.setAdapter(adapterLesson);
         ArrayAdapter arrayAdapterBook = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, bookList);
         spinnerBook.setAdapter(arrayAdapterBook);
+    }
+
+    private void setEditTextInputType(){
+        editTextWord.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        editTextMeaning.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
     }
 
     public void addWord(View view){

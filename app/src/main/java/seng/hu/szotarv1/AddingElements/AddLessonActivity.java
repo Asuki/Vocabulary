@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -35,6 +36,7 @@ public class AddLessonActivity extends AppCompatActivity {
         dbLite = new DatabaseHelperLite(getBaseContext());
         spinnerBook = findViewById(R.id.spinnerBookLesson);
         editTextLessonName = findViewById(R.id.editTextLessonNameLesson);
+        editTextLessonName.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
     }
 
     private void fillSpinner(){

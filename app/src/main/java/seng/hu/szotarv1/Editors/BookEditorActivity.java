@@ -1,14 +1,19 @@
-package seng.hu.szotarv1;
+package seng.hu.szotarv1.Editors;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import seng.hu.szotarv1.DatabaseHelperLite;
+import seng.hu.szotarv1.MainActivity;
+import seng.hu.szotarv1.R;
 
 public class BookEditorActivity extends AppCompatActivity {
 
@@ -50,6 +55,13 @@ public class BookEditorActivity extends AppCompatActivity {
         data.moveToFirst();
         language1 = data.getString(DatabaseHelperLite.LANGUAGE_1_POSITION);
         language2 = data.getString(DatabaseHelperLite.LANGUAGE_2_POSITION);
+        setEditTextInputTypes();
+    }
+
+    private void setEditTextInputTypes() {
+        editTextBookTitle.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        editTextLanguage1.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        editTextLanguage2.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
     }
 
     private void setData(){

@@ -3,6 +3,7 @@ package seng.hu.szotarv1.AddingElements;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +33,13 @@ public class AddBookActivity extends AppCompatActivity {
         editTextLanguage2 = findViewById(R.id.editTextBookLanguage2Edit);
         buttonReady = findViewById(R.id.buttonReadyEdit);
         dbLite = new DatabaseHelperLite(getBaseContext());
+        setEditTextTypes();
+    }
+
+    private void setEditTextTypes(){
+        editTextBookTitle.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        editTextLanguage1.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        editTextLanguage2.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
     }
 
     public void addBook(View view){

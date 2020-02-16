@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import seng.hu.szotarv1.AddingElements.AddNewWordActivity;
 import seng.hu.szotarv1.DatabaseHelperLite;
-import seng.hu.szotarv1.EditWordActivity;
+import seng.hu.szotarv1.Editors.EditWordActivity;
 import seng.hu.szotarv1.MainActivity;
 import seng.hu.szotarv1.R;
 import seng.hu.szotarv1.WordData;

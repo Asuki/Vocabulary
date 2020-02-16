@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import seng.hu.szotarv1.AddingElements.AddBookActivity;
 import seng.hu.szotarv1.AddingElements.AddLessonActivity;
 import seng.hu.szotarv1.AddingElements.AddNewWordActivity;
-import seng.hu.szotarv1.BookEditorActivity;
+import seng.hu.szotarv1.Editors.BookEditorActivity;
 import seng.hu.szotarv1.DatabaseHelperLite;
 import seng.hu.szotarv1.Listing.LessonsActivity;
 import seng.hu.szotarv1.MainActivity;
