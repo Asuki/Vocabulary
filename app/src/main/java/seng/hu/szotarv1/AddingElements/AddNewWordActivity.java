@@ -53,7 +53,10 @@ public class AddNewWordActivity extends AppCompatActivity {
         spinnerBook.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                refillLessonsSpinner();
+                Log.d(TAG, "onItemSelected: book selected" + adapterView.getItemAtPosition(i).toString());
+                if(listAll) {
+                    refillLessonsSpinner();
+                }
             }
 
             @Override
@@ -80,12 +83,14 @@ public class AddNewWordActivity extends AppCompatActivity {
     private void setData(){
 
         if (!listAll) {
+            Log.d(TAG, "setData: setting data - list one element");
             lessonName = intent.getStringExtra(LESSON_NAME_WORD);
             bookTittle = intent.getStringExtra(MainActivity.BOOK_TITLE);
             lessonList.add(lessonName);
             bookList.add(bookTittle);
         }
         else {
+            Log.d(TAG, "setData: setting data - list alla element");
             Cursor cursorBook = dbLite.getBooks();
             while (cursorBook.moveToNext()){
                 bookList.add(cursorBook.getString(DatabaseHelperLite.NAME_POSITION));

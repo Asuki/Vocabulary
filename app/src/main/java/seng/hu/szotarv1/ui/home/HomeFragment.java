@@ -111,6 +111,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intentAddLesson = new Intent(getActivity(), AddLessonActivity.class);
+                intentAddLesson.putExtra(LessonsActivity.ADD_LESSON_MODE, LessonsActivity.LESSON_MODE_ALL);
                 startActivityForResult(intentAddLesson, EDIT_REQUEST_CODE);
             }
         });

@@ -247,7 +247,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
                 WORD_TABLE + " as w join " + BOOK_TABLE + " as b on b."
                 + BOOK_TITLE + " = w." + BOOK_TITTLE_WORD_F +
                 " where b." + FIRST_LANGUAGE + " = '" + language + "' or b." +
-                SECOND_LANGUAGE + " = '" + language + "' order by w." + WORD;
+                SECOND_LANGUAGE + " = '" + language + "' order by lower(w." + WORD + ")";
         Log.d(TAG, "getAllWords: query: " + query);
         Cursor data = db.rawQuery(query, null);
         Log.d(TAG, "getAllWords: query run successfully");
@@ -260,7 +260,7 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
         String query = SELECT_ALL_ROW_FROM_TABLE + WORD_TABLE +
                 " where " + LESSON_NAME_F + " = '" + lessonName +
                 "' and " + BOOK_TITTLE_WORD_F + " = '" + bookTittle + "'" +
-                " order by " + WORD;
+                " order by lower(" + WORD + ")";
         Log.d(TAG, "getAllWordsOfLesson: query: " + query);
         Cursor data = db.rawQuery(query, null);
         Log.d(TAG, "getAllWordsOfLesson: query run successfully");
