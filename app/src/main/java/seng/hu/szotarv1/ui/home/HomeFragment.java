@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -30,9 +34,11 @@ import seng.hu.szotarv1.MainActivity;
 import seng.hu.szotarv1.R;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 public class HomeFragment extends Fragment {
 
+    private static final String TAG = "HomeFragment";
     private HomeViewModel homeViewModel;
     ListView listView;
     private boolean editMode;
@@ -50,6 +56,7 @@ public class HomeFragment extends Fragment {
     FloatingActionButton fabAddBook;
     FloatingActionButton fabAddLesson;
     FloatingActionButton fabAddWord;
+    FloatingActionMenu fabMenu;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -96,10 +103,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        fabMenu = root.findViewById(R.id.fab_menu);
+
         fabAddWord = root.findViewById(R.id.fabAddWord);
         fabAddWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fabMenu.close(true);
                 Intent intentAddWord = new Intent(getActivity(), AddNewWordActivity.class);
                 intentAddWord.putExtra(ADD_WORD_MODE, WORD_MODE_ALL);
                 startActivity(intentAddWord);
@@ -110,6 +120,7 @@ public class HomeFragment extends Fragment {
         fabAddLesson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fabMenu.close(true);
                 Intent intentAddLesson = new Intent(getActivity(), AddLessonActivity.class);
                 intentAddLesson.putExtra(LessonsActivity.ADD_LESSON_MODE, LessonsActivity.LESSON_MODE_ALL);
                 startActivityForResult(intentAddLesson, EDIT_REQUEST_CODE);
@@ -120,6 +131,7 @@ public class HomeFragment extends Fragment {
         fabAddBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fabMenu.close(true);
                 Intent intentAddBook = new Intent(getActivity(), AddBookActivity.class);
                 startActivityForResult(intentAddBook, EDIT_REQUEST_CODE);
             }
@@ -130,6 +142,7 @@ public class HomeFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
+                fabMenu.close(true);
                 if (editMode) {
                     editMode = false;
                     fabEditMode.setColorNormal(getActivity().getColor(R.color.colorPrimary));

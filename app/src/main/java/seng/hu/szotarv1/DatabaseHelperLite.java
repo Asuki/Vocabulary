@@ -401,4 +401,24 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
             Toast.makeText(context, context.getString(R.string.the_book_is_exists_error), Toast.LENGTH_LONG).show();
         }
     }
+
+    public void updateLessonData(Context context, String lessonName, String newLessonName, String bookTittle){
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(LESSON_NAME, newLessonName);
+            db.update(LESSON_TABLE, contentValues,
+                    LESSON_NAME + " = '" + lessonName + "' and " +
+                    BOOK_TITTLE_F + " = '" + bookTittle + "'",
+                    null);
+            ContentValues contentValuesWords = new ContentValues();
+            contentValuesWords.put(LESSON_NAME_F, newLessonName);
+            db.update(WORD_TABLE, contentValuesWords,
+                    LESSON_NAME_F + " = '" + lessonName + "' and " +
+                    BOOK_TITTLE_WORD_F + " = '" + bookTittle + "'",
+                    null);
+        } catch (Exception e){
+            Log.e(TAG, "updateLessonData: " + e.toString() );
+        }
+    }
 }
