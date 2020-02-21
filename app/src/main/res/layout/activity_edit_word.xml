@@ -72,23 +72,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextMeaningWordEdit">
 
-        <Button
+        <ImageView
             android:id="@+id/buttonWordEditReady"
             style="@style/ButtonReady"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:onClick="modifyWord"
-            android:text="@string/ready" />
+            />
 
-        <Button
+        <ImageView
             android:id="@+id/buttonWordDelete"
             style="@style/ButtonDelete"
             android:onClick="deleteWord"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="@string/delete" />
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

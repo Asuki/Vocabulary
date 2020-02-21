@@ -9,6 +9,8 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import seng.hu.szotarv1.DatabaseHelperLite;
@@ -26,8 +28,8 @@ public class EditWordActivity extends AppCompatActivity {
 
     EditText editTextWord;
     EditText editTextMeaning;
-    Button buttonReady;
-    Button buttonDelete;
+    ImageView buttonReady;
+    ImageView buttonDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
