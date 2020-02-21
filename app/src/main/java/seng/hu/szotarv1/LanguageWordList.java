@@ -3,13 +3,21 @@ package seng.hu.szotarv1;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import seng.hu.szotarv1.ui.languageList.LanguageList;
 
@@ -20,6 +28,9 @@ public class LanguageWordList extends AppCompatActivity {
     ListView listViewLanguageWordList;
     DatabaseHelperLite dbLite;
     ArrayList<WordData> wordList;
+    TextToSpeech textToSpeech;
+    TextToSpeech textToSpeechLocal;
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +45,75 @@ public class LanguageWordList extends AppCompatActivity {
 //        intent = getIntent();
         listViewLanguageWordList = findViewById(R.id.listViewLanguageWordList);
         dbLite = new DatabaseHelperLite(getBaseContext());
+
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int ttsLang = textToSpeech.setLanguage(Locale.GERMANY);
+                    Toast.makeText(getBaseContext(), Locale.GERMANY.toString(), Toast.LENGTH_LONG).show();
+
+                    if (ttsLang == TextToSpeech.LANG_MISSING_DATA
+                            || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "The Language is not supported!");
+                    } else {
+                        Log.i("TTS", "Language Supported.");
+                    }
+                    Log.i("TTS", "Initialization success.");
+                } else {
+                    Toast.makeText(getApplicationContext(), "TTS Initialization failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        textToSpeechLocal = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+
+                    Log.i("TTS", "Initialization success.");
+                } else {
+                    Toast.makeText(getApplicationContext(), "TTS Initialization failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < wordList.size() -1; i++){
+                    while (textToSpeech.isSpeaking() || textToSpeechLocal.isSpeaking())
+                        ;
+                    textToSpeech.speak( wordList.get(i).getWord(), TextToSpeech.QUEUE_FLUSH, null, null);
+                    textToSpeechLocal.speak(wordList.get(i).getMeaning(), TextToSpeech.QUEUE_FLUSH, null, null);
+                    Log.d(TAG, "readWordsLanguageWordList: i = " + i);
+                    try {
+                        TimeUnit.SECONDS.sleep(5);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+
+        floatingActionButton = findViewById(R.id.floatingActionButtonReadLanguageWords);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Thread thread = new Thread(runnable);
+                thread.start();
+            }
+        });
     }
+
+//    public void readWordsLanguageWordList(View view){
+//        for (int i = 0; i < wordList.size(); i++){
+//            textToSpeech.speak( wordList.get(i).getWord(), TextToSpeech.QUEUE_FLUSH, null, null);
+//            textToSpeechLocal.speak(wordList.get(i).getMeaning(), TextToSpeech.QUEUE_FLUSH, null, null);
+//            Log.d(TAG, "readWordsLanguageWordList: i = " + i);
+//        }
+//    }
 
     private void populateListView(){
         intent = getIntent();
