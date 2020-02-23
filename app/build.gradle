@@ -4,10 +4,10 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "seng.hu.szotarv1"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 28
-        versionCode 4
-        versionName "1.3"
+        versionCode 7
+        versionName "1.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

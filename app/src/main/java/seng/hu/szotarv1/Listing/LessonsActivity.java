@@ -21,10 +21,9 @@ import java.util.ArrayList;
 
 import seng.hu.szotarv1.AddingElements.AddLessonActivity;
 import seng.hu.szotarv1.DatabaseHelperLite;
-import seng.hu.szotarv1.Editors.BookEditorActivity;
 import seng.hu.szotarv1.MainActivity;
 import seng.hu.szotarv1.R;
-import seng.hu.szotarv1.ui.EditLessonActivity;
+import seng.hu.szotarv1.Editors.EditLessonActivity;
 
 public class LessonsActivity extends AppCompatActivity {
 

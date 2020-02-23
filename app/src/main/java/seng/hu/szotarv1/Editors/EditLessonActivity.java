@@ -1,4 +1,4 @@
-package seng.hu.szotarv1.ui;
+package seng.hu.szotarv1.Editors;
 
 import androidx.appcompat.app.AppCompatActivity;
 

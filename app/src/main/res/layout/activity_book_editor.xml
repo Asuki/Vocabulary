@@ -37,26 +37,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextBookTitleBookEdit" />
 
-    <EditText
-        android:id="@+id/editTextLanguage1BookEdit"
-        style="@style/Text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLanguage1BookEdit" />
-
     <TextView
         android:id="@+id/textViewLanguage2BookEdit"
         style="@style/Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:text="@string/book_language_2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLanguage1BookEdit" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerFirstLanguageBookEditor" />
 
     <EditText
         android:id="@+id/editTextLanguage2BookEdit"
@@ -69,14 +58,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLanguage2BookEdit" />
 
-    <Button
-        android:id="@+id/buttonReadyBookEdit"
-        style="@style/Button"
+    <Spinner
+        android:id="@+id/spinnerFirstLanguageBookEditor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/ready"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLanguage1BookEdit"
+        app:layout_constraintVertical_bias="0.41" />
+
+    <ImageView
+        android:id="@+id/buttonReadyBookEdit"
+        style="@style/ButtonReady"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
         android:onClick="modifyReadyBookEdit"
         app:layout_constraintTop_toBottomOf="@+id/editTextLanguage2BookEdit"
-        tools:layout_editor_absoluteX="58dp" />
+        tools:layout_editor_absoluteX="64dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

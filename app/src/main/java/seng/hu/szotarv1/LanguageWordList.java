@@ -31,6 +31,7 @@ public class LanguageWordList extends AppCompatActivity {
     TextToSpeech textToSpeech;
     TextToSpeech textToSpeechLocal;
     FloatingActionButton floatingActionButton;
+    Locale[] languages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +47,21 @@ public class LanguageWordList extends AppCompatActivity {
         listViewLanguageWordList = findViewById(R.id.listViewLanguageWordList);
         dbLite = new DatabaseHelperLite(getBaseContext());
 
+        languages = Locale.getAvailableLocales();
+
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
-                    int ttsLang = textToSpeech.setLanguage(Locale.GERMANY);
-                    Toast.makeText(getBaseContext(), Locale.GERMANY.toString(), Toast.LENGTH_LONG).show();
+                    int ttsLang = textToSpeech.setLanguage(languages[0]);
+                    for (int i = 0; i < languages.length; i++){
+                        if(languages[i].toLanguageTag().equals("en")){
+                            ttsLang = textToSpeech.setLanguage(languages[i]);
+                            Log.d(TAG, "onInit: Selected speech language: " + languages[i].getDisplayName());
+                            break;
+                        }
+                        Log.d(TAG, "onInit: Current speech language: " + languages[i].getDisplayName());
+                    }
 
                     if (ttsLang == TextToSpeech.LANG_MISSING_DATA
                             || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED) {

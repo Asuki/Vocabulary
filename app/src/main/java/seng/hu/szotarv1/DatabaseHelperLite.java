@@ -380,21 +380,30 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
                          String newTittle, String newLanguage1, String newLanguage2,
                                Context context){
         try {
+            Log.d(TAG, "updateBookData: language1 = " + newLanguage1);
+            Log.d(TAG, "updateBookData: old_language1 = " + oldLanguage1);
             SQLiteDatabase db = getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             contentValues.put(BOOK_TITLE, newTittle);
             contentValues.put(FIRST_LANGUAGE, newLanguage1);
             contentValues.put(SECOND_LANGUAGE, newLanguage2);
             db.update(BOOK_TABLE, contentValues,
-                    BOOK_TITLE + " = '" + oldTittle + "' and " +
-                            FIRST_LANGUAGE + " = '" + oldLanguage1 + "' and " +
-                            SECOND_LANGUAGE + " = '" + oldLanguage2 + "'", null);
+                    BOOK_TITLE + " = '" + oldTittle + "' "
+//                            + " and " +
+//                            FIRST_LANGUAGE + " = '" + oldLanguage1 + "' and " +
+//                            SECOND_LANGUAGE + " = '" + oldLanguage2 + "'"
+                    , null);
             ContentValues contentValuesLesson = new ContentValues();
             ContentValues contentValuesWord = new ContentValues();
             contentValuesLesson.put(BOOK_TITTLE_F, newTittle);
             contentValuesWord.put(BOOK_TITTLE_WORD_F, newTittle);
-            db.update(LESSON_TABLE, contentValuesLesson, "1 = 1", null);
-            db.update(WORD_TABLE, contentValuesWord, "1 = 1", null);
+            db.update(LESSON_TABLE, contentValuesLesson,
+                    BOOK_TITTLE_F + " = '" + oldTittle + "'",
+                    null);
+            db.update(WORD_TABLE, contentValuesWord,
+                    BOOK_TITTLE_WORD_F + " = '" + "'",
+                    null);
+            addLanguage(newLanguage1);
 
         }
         catch (Exception e){

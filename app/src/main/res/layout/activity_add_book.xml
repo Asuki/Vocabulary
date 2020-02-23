@@ -15,17 +15,17 @@
         <TextView
             android:id="@+id/textViewBookTitleEdit"
             style="@style/Text"
-            android:layout_width="50dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.4"
             android:text="@string/book_title" />
 
         <EditText
             android:id="@+id/editTextBookTitleEdit"
             style="@style/Text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:ems="10"
             android:inputType="textPersonName" />
     </LinearLayout>
@@ -38,19 +38,17 @@
         <TextView
             android:id="@+id/textViewBookLanguage1Edit"
             style="@style/Text"
-            android:layout_width="50dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.4"
             android:text="@string/book_language_1" />
 
-        <EditText
-            android:id="@+id/editTextBookLanguage1Edit"
+        <Spinner
+            android:id="@+id/spinnerLanguagesAddBook"
             style="@style/Text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            android:layout_weight="0.6" />
 
     </LinearLayout>
 
@@ -62,28 +60,27 @@
         <TextView
             android:id="@+id/textViewBookLanguage2Edit"
             style="@style/Text"
-            android:layout_width="50dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.4"
             android:text="@string/book_language_2" />
 
         <EditText
             android:id="@+id/editTextBookLanguage2Edit"
             style="@style/Text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:ems="10"
             android:inputType="textPersonName" />
 
     </LinearLayout>
 
-    <Button
+    <ImageView
         android:id="@+id/buttonReadyEdit"
-        style="@style/Button"
+        style="@style/ButtonReady"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:onClick="addBook"
-        android:layout_weight="1"
         android:text="@string/ready" />
+
 </LinearLayout>
