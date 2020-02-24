@@ -411,20 +411,22 @@ public class DatabaseHelperLite extends SQLiteOpenHelper {
         }
     }
 
-    public void updateLessonData(Context context, String lessonName, String newLessonName, String bookTittle){
+    public void updateLessonData(String lessonName, String newLessonName, String oldBookTittle, String newBookTittle){
         try {
             SQLiteDatabase db = getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             contentValues.put(LESSON_NAME, newLessonName);
+            contentValues.put(BOOK_TITTLE_F, newBookTittle);
             db.update(LESSON_TABLE, contentValues,
                     LESSON_NAME + " = '" + lessonName + "' and " +
-                    BOOK_TITTLE_F + " = '" + bookTittle + "'",
+                    BOOK_TITTLE_F + " = '" + oldBookTittle + "'",
                     null);
             ContentValues contentValuesWords = new ContentValues();
             contentValuesWords.put(LESSON_NAME_F, newLessonName);
+            contentValuesWords.put(BOOK_TITTLE_WORD_F, newBookTittle);
             db.update(WORD_TABLE, contentValuesWords,
                     LESSON_NAME_F + " = '" + lessonName + "' and " +
-                    BOOK_TITTLE_WORD_F + " = '" + bookTittle + "'",
+                    BOOK_TITTLE_WORD_F + " = '" + oldBookTittle + "'",
                     null);
         } catch (Exception e){
             Log.e(TAG, "updateLessonData: " + e.toString() );
