@@ -7,14 +7,26 @@
     tools:context=".Listing.LessonsActivity">
 
     <TextView
+        android:id="@+id/textViewBookTitleLabelLessonList"
+        style="@style/Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/book_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/textViewBookTitleLessons"
         style="@style/Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorPrimary"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/textViewBookTitleLabelLessonList"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
@@ -71,4 +83,5 @@
             app:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

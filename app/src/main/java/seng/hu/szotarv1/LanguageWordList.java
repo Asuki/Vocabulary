@@ -91,7 +91,7 @@ public class LanguageWordList extends AppCompatActivity {
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < wordList.size() -1; i++){
+                for (int i = 0; i < wordList.size(); i++){
                     while (textToSpeech.isSpeaking() || textToSpeechLocal.isSpeaking())
                         ;
                     textToSpeech.speak( wordList.get(i).getWord(), TextToSpeech.QUEUE_FLUSH, null, null);

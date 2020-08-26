@@ -6,9 +6,11 @@ android {
         applicationId "seng.hu.szotarv1"
         minSdkVersion 22
         targetSdkVersion 28
-        versionCode 7
-        versionName "1.5"
+        versionCode 9
+        versionName "1.6.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // findViewByID safer and faster mode
+        viewBinding.enabled = true
     }
     buildTypes {
         release {
